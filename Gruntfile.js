@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 	
 	// Setup folders name, so if you wnat use a different folder structure, just update this variables
 	var config = {
-		dirName: 'assets',
+		dirName: 'dist',
 		srcName: 'src'
 	}
 
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 		clientJS:   [config.dirName + '/js/*.js', config.dirName + '/js/vendor/*.js'],
 		clientScripts:  [config.srcName + '/scripts/*.js'],
 		clientCSS:  [config.dirName + '/css/**/*.css'],
-		clientPreprocessor: [config.srcName + '/preprocessor/*.less', config.srcName + '/preprocessor/*.scss'],
+		clientPreprocessor: [config.srcName + '/sass/*.less', config.srcName + '/sass/*.scss'],
 		clientHTML: ['*.html'],
 		mochaTests: [config.dirName + '/test/unit/*.js'],
 		concatBase: [config.srcName + '/scripts/*js', 'src/vendor/*js' ]
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
   			},
 			// use this task to run before start coding
 			//reset: {
-			//	src: [config.srcName + 'preprocessor', config.srcName + 'scripts', 'lib']
+			//	src: [config.srcName + 'sass', config.srcName + 'scripts', 'lib']
 			//}
 		},
 		// Watches files for changes and runs tasks based on the changed files
@@ -82,7 +82,7 @@ module.exports = function (grunt) {
 				options: {
 					jshintrc: '.jshintrc',
 					reporter: require('jshint-stylish'),
-					ignores: ['assets/js/*.min.js']
+					ignores: ['dist/js/*.min.js']
 				}
 			}
 		},
@@ -101,7 +101,7 @@ module.exports = function (grunt) {
 			},
 			base: {
 				src: watchFiles.concatBase,
-				dest: 'assets/js/<%= pkg.name %>-scripts.js'
+				dest: 'dist/js/<%= pkg.name %>-scripts.js'
 			}
 		},
 		uglify: {
@@ -123,14 +123,14 @@ module.exports = function (grunt) {
 				options: {
 					compress: false
 				},
-				src: [config.srcName + '/preprocessor/*.less'],
+				src: [config.srcName + '/sass/*.less'],
 				dest: config.dirName + '/css/<%= pkg.name %>-style.css'
 			}
 		},
 		sass: {
 			dist: {
 				files: [{
-					'assets/css/<%= pkg.name %>-style.css': config.srcName + '/preprocessor/*.scss'
+					'dist/css/<%= pkg.name %>-style.css': config.srcName + '/sass/*.scss'
 				}]
 			}
 		},		
@@ -177,7 +177,7 @@ module.exports = function (grunt) {
 			},
 			local_dependencies: {
      			files: {
-       			    'index.html': ['assets/**/*.js', 'assets/**/*.css']
+       			    'index.html': ['dist/**/*.js', 'dist/**/*.css']
      			}
    			},
             bower_dependencies: {
