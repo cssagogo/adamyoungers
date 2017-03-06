@@ -17,7 +17,7 @@ function sampleB() {
 	
 	'use strict';
 	
-	window.console.log("Sample B");
+	window.console.log("Sample Z");
 }
 	
 sampleB();

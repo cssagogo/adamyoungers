@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 	// Unified Watch Object asign variables for easy editing
 	var watchFiles = {
 		clientJS:   [config.dirName + '/js/*.js', config.dirName + '/js/vendor/*.js'],
-		clientSrc:  [config.srcName + '/scripts/*.js'],
+		clientScripts:  [config.srcName + '/scripts/*.js'],
 		clientCSS:  [config.dirName + '/css/**/*.css'],
 		clientPreprocessor: [config.srcName + '/preprocessor/*.less', config.srcName + '/preprocessor/*.scss'],
 		clientHTML: ['*.html'],
@@ -60,6 +60,13 @@ module.exports = function (grunt) {
 					livereload: true
 				}
 			},
+			clientScripts: {
+				files: watchFiles.clientScripts,
+				tasks: ['concat'],
+				options: {
+					livereload: true
+				}
+			},
 			clientHTML: {
 				files: watchFiles.clientHTML,
 				//tasks: ['csslint'],
@@ -71,7 +78,7 @@ module.exports = function (grunt) {
 		// Make sure code styles are up to par and there are no obvious mistakes
 		jshint: {
 			all: {
-				src: watchFiles.clientJS.concat(watchFiles.clientSrc),
+				src: watchFiles.clientJS.concat(watchFiles.clientScripts),
 				options: {
 					jshintrc: '.jshintrc',
 					reporter: require('jshint-stylish'),
@@ -123,7 +130,7 @@ module.exports = function (grunt) {
 		sass: {
 			dist: {
 				files: [{
-					'assets/css/<%= pkg.name %>-style.css': 'src/preprocessor/*.scss'
+					'assets/css/<%= pkg.name %>-style.css': config.srcName + '/preprocessor/*.scss'
 				}]
 			}
 		},		
@@ -165,17 +172,21 @@ module.exports = function (grunt) {
 			options: {
 				min: false,
 				addRootSlash: false,
-				relative: true
+				relative: true,
+                postfix: '?v=<%= pkg.version %>',
 			},
-// Uncomment to use with others files.
-//			local_dependencies: {
-//      			files: {
-//        			'index.html': ['js/*.js', 'css/*.css'],
-//      			}
-//    		},
-			bower_dependencies: {
+			local_dependencies: {
+     			files: {
+       			    'index.html': ['assets/**/*.js', 'assets/**/*.css']
+     			}
+   			},
+            bower_dependencies: {
+                options: {
+                    starttag: "<!-- bower:{{ext}} -->",
+                    endtag:  "<!-- endbower -->"
+                },
 				files: {
-        			'index.html': ['bower.json'],
+        			'index.html': ['bower.json']
       			}
     		}
 		},

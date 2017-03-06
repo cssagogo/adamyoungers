@@ -1,6 +1,6 @@
 /*!
-* frontendboilerplate - v0.1.0 - MIT LICENSE 2014-12-08. 
-* @author Fernando Monteiro
+* adamyoungers - v0.0.1 - MIT LICENSE 2017-03-05. 
+* @author Adam Youngers
 */
 /**
  * Sample content to test the concat and minify grunt plugins.
@@ -21,7 +21,7 @@ function sampleB() {
 	
 	'use strict';
 	
-	window.console.log("Sample B");
+	window.console.log("Sample Z");
 }
 	
 sampleB();
