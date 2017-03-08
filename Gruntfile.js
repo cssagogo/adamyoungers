@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 	var config = {
 		dirName: 'dist',
 		srcName: 'src'
-	}
+	};
 
 	// Unified Watch Object asign variables for easy editing
 	var watchFiles = {
@@ -31,11 +31,7 @@ module.exports = function (grunt) {
 		clean: {
 			build: {
     			src: [ config.dirName + '/css/*.css', config.dirName + '/js/*.js']
-  			},
-			// use this task to run before start coding
-			//reset: {
-			//	src: [config.srcName + 'sass', config.srcName + 'scripts', 'lib']
-			//}
+  			}
 		},
 		// Watches files for changes and runs tasks based on the changed files
 		watch: {
